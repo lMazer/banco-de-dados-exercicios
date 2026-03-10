@@ -1,0 +1,40 @@
+﻿@startuml
+skinparam classAttributeIconSize 0
+
+class Passageiro {
+  +id_passageiro: int
+  +nome: string
+  +idade: int
+  +numero_documento: string
+}
+
+class Voo {
+  +id_voo: int
+  +numero_voo: string
+  +origem: string
+  +destino: string
+  +data_hora_partida: datetime
+  +capacidade: int
+}
+
+class Reserva {
+  +id_reserva: int
+  +data_reserva: datetime
+  +status: StatusReserva
+  +assento: string
+}
+
+enum StatusReserva {
+  PENDENTE
+  CONFIRMADA
+  CANCELADA
+}
+
+Passageiro "1" <-- "0..*" Reserva : realiza
+Voo "1" <-- "0..*" Reserva : pertence
+
+note right of Voo
+  Regra: (numero_voo, data_hora_partida) unico
+  Regra: capacidade > 0
+end note
+@enduml
